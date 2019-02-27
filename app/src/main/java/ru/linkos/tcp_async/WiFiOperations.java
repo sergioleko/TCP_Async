@@ -34,13 +34,13 @@ public class WiFiOperations extends AsyncTask<Void, Void, Void> {
         WifiManager wfm = (WifiManager) mContext.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
         assert wfm != null;
-        Log.i("wifi ", String.valueOf(wfm.isWifiEnabled()));
+      //  Log.i("wifi ", String.valueOf(wfm.isWifiEnabled()));
         while (error.equals("No error") || error.equals("Station reachable")) {
             if (wfm.isWifiEnabled()) {
 
-                Log.i("WiFi ", "enabled");
+             //   Log.i("WiFi ", "enabled");
                 if (wfm.getConnectionInfo().getSSID().equals("\"215\"")) {
-                    Log.i("Wifi is: ", "OK");
+                //    Log.i("Wifi is: ", "OK");
                     error = "No error";
                     try {
                         pingStation(targetIp);
@@ -63,7 +63,11 @@ public class WiFiOperations extends AsyncTask<Void, Void, Void> {
                 return null;
             }
 
-
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
 
         return null;
@@ -83,15 +87,15 @@ public class WiFiOperations extends AsyncTask<Void, Void, Void> {
         if (InetAddress.getByName(ip) != null) {
                 InetAddress stationIP = InetAddress.getByName(ip);
             if (stationIP.isReachable(1000)) {
-                Log.i("station is: ", "reachable");
+               // Log.i("station is: ", "reachable");
                 error = "Station reachable";
             } else {
-                Log.i("station is: ", "unreachable");
+              //  Log.i("station is: ", "unreachable");
                 error = "Station unreachable";
                 startError(mContext, error);
                             }
         } else {
-            Log.i("station is: ", "unreachable vasche");
+           // Log.i("station is: ", "unreachable vasche");
             error = "Station unreachable sovsem, stranno kak-to";
             startError(mContext, error);
 
